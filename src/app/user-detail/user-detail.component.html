@@ -1,0 +1,42 @@
+<h1>{{ userDetails.nom }} {{ userDetails.prenom }}</h1>
+
+<h2>Informations de l'utilisateur :</h2>
+<table class="table table-bordered table-striped table-hover">
+  <tbody>
+  <tr>
+    <th>Email</th>
+    <td>{{ userDetails.email }}</td>
+  </tr>
+  <tr>
+    <th>Adresse</th>
+    <td>{{ userDetails.adresse }}</td>
+  </tr>
+  <tr>
+    <th>Téléphone</th>
+    <td>{{ userDetails.tel }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Possessions de {{ userDetails.nom }} :</h2>
+<table class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Nom</th>
+    <th>Valeur</th>
+    <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let possession of userPossessions">
+    <td>{{ possession.nom }}</td>
+    <td>{{ possession.valeur }}</td>
+    <td>{{ possession.type }}</td>
+  </tr>
+  <tr *ngIf="userPossessions.length === 0">
+    <td colspan="3">Cet utilisateur n'a pas encore de possessions.</td>
+  </tr>
+  </tbody>
+</table>
+
+<button routerLink="" class="btn btn-primary">Retour</button>
