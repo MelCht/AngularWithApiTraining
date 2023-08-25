@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../services/users.service";
+import {Router} from "@angular/router";
+
 
 import { ApiResponse, User } from "../services/users.service";
-import {Router} from "@angular/router";
 
 
 @Component({
@@ -40,34 +41,37 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  deleteUser(url: string): void {
+  deleteUser(event: Event, url: string): void {
+    event.preventDefault();
+
     const userId = this.extractIdFromUrl(url);
 
     if (isNaN(userId)) {
-      console.log("Y'a une erreur id");
+      console.log("Id inexistant");
       return;
     }
 
+    // console.log('Démarrage de la suppression...');
+    // console.log('ID utilisateur à supprimer:', userId);
+
     this.userService.deleteUser(userId).subscribe(
       (response) => {
-        // Utilisez la console du navigateur pour des informations détaillées
-        console.log('Network Request:', response);
-
+        // console.log('Réponse de l\'API (succès) :', response);
         if (response.message === 'Utilisateur supprimé') {
-          // Ne mettez pas loadUsers() ici
-          // La suppression est effectuée, mais nous n'appelons pas loadUsers() tout de suite
+          console.log('Utilisateur supprimé.');
+          this.loadUsers();
         } else {
-          console.error('Unexpected response:', response);
+          console.error('Réponse inattendue de l\'API :', response);
         }
       },
       (error) => {
-        console.error('Error deleting user:', error);
+        console.error('Erreur lors de la suppression d\'utilisateur:', error);
       }
     );
-
-    // Maintenant, appelez loadUsers() ici pour actualiser la liste après la suppression
-    this.loadUsers();
   }
+
+
+
 
   calculateAge(dateOfBirth: string): number {
     return this.userService.calculateAge(dateOfBirth);

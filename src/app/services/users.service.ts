@@ -31,7 +31,7 @@ export interface User {
   possessions: Possession[];
 }
 
-export interface ApiDeleteResponse {
+export interface ApiModifResponse {
   message: string;
 }
 
@@ -39,21 +39,28 @@ export interface ApiDeleteResponse {
   providedIn: 'root',
 })
 export class UserService {
-  private apiAllUsersUrl = 'http://127.0.0.1:8000/api/users';
+  private apiUrl = 'http://127.0.0.1:8000/api';
+
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.apiAllUsersUrl);
+    const url = `${this.apiUrl}/users`;
+    return this.http.get<ApiResponse>(url);
   }
 
-  deleteUser(id: number): Observable<ApiDeleteResponse> {
-    const apiUrl = `http://127.0.0.1:8000/api/delete/${id}`;
-    return this.http.delete<ApiDeleteResponse>(apiUrl);
+  deleteUser(id: number): Observable<ApiModifResponse> {
+    const url = `${this.apiUrl}/delete/${id}`;
+    return this.http.delete<ApiModifResponse>(url);
   }
 
-  getUserDetails(id: number): Observable<any> {
-    const apiUrl = `http://127.0.0.1:8000/api/user/${id}`;
-    return this.http.get<any>(apiUrl);
+  getUserDetails(id: number): Observable<User> {
+    const url = `${this.apiUrl}/user/${id}`;
+    return this.http.get<User>(url);
+  }
+
+  createUser(userData: User): Observable<ApiModifResponse> {
+    const url = `${this.apiUrl}/new/user`;
+    return this.http.post<ApiModifResponse>(url, userData);
   }
 
   calculateAge(dateOfBirth: string): number {

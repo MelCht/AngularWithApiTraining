@@ -19,9 +19,14 @@
     <td>{{ user.tel }}</td>
     <td>{{ calculateAge(user.birthDate) }}</td>
     <td>
-      <a href="" class="btn btn-danger" (click)="deleteUser(user['@id'])">Supprimer</a>
+      <a href="" class="btn btn-danger" (click)="deleteUser($event, user['@id'])">Supprimer</a>
     </td>
   </tr>
   </tbody>
 </table>
+<div>
+  <button routerLink="/new" class="btn btn-success">Nouvel utilisateur</button>
+</div>
+
+
 

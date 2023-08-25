@@ -5,17 +5,21 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { AddUserFormComponent } from './add-user-form/add-user-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    AddUserFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
